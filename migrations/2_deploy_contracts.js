@@ -7,7 +7,7 @@ module.exports = async function(deployer) {
   const token = await Token.deployed()
 
   // Deploy PrimeSwap
-  await deployer.deploy(PrimeSwap);
+  await deployer.deploy(PrimeSwap, token.address);
   const primeSwap = await PrimeSwap.deployed()
 
   // Transfer all tokens to PrimeSwap
