@@ -7,7 +7,14 @@ contract PrimeSwap{
     Token public token;
     uint public rate = 100;
 
-    event TokenPurchased(
+    event TokensPurchased(
+        address account,
+        address token,
+        uint amount,
+        uint rate
+    );
+
+    event Tokenssold(
         address account,
         address token,
         uint amount,
@@ -32,7 +39,27 @@ contract PrimeSwap{
         token.transfer(msg.sender, tokenAmount);
 
         //Emit an event
-        emit TokenPurchased(msg.sender, address(token), tokenAmount, rate);
+        emit TokensPurchased(msg.sender, address(token), tokenAmount, rate);
+    }
+
+    function sellTokens(uint _amount) public {
+        //User can only sell tokens they own
+        require(token.balanceOf(msg.sender) >= _amount);
+
+        // Calculate the amount of ETH to be redeemed
+        uint etherAmount =_amount / rate;
+
+        // Require Primeswaphas enough Ether
+        require(address(this).balance >= etherAmount);
+
+
+        //perform sale
+        token.transferFrom(msg.sender, address(this), _amount);
+        msg.sender.transfer(etherAmount);
+
+
+        //Emit an event
+        emit Tokenssold(msg.sender, address(token), _amount, rate);
     }
 }
 
