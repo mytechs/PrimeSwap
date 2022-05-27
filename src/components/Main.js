@@ -29,7 +29,7 @@ class Main extends Component {
 
         <div className="d-flex justify-content-between mb-3">
           <button 
-              className="btn btn-light"
+              className="btn btn-outline-success"
               onClick={(event) => {
                 this.setState({ currentForm: 'buy' })
               }}
@@ -37,7 +37,7 @@ class Main extends Component {
             Buy
           </button>
           <span className="text-muted">&lt; &nbsp; &gt;</span>
-          <button className="btn btn-light"
+          <button className="btn btn-outline-danger"
               onClick={(event) => {
                 this.setState({ currentForm: 'sell' })
               }}>
